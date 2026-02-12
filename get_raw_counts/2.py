@@ -10,7 +10,7 @@ import numpy as np
 
 # Load the existing h5ad file
 print("Loading existing h5ad file...")
-adata = sc.read_h5ad("CTR9_snRNASeq/CTR9_snRNASeq.h5ad")
+adata = sc.read_h5ad("CTR9_snRNASeq/CTR9_snRNASeq_full.h5ad")
 print(f"Loaded: {adata.shape[0]} cells x {adata.shape[1]} genes")
 
 # Load the raw counts matrix
