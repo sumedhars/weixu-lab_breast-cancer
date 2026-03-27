@@ -1,0 +1,6 @@
+/mnt/scratch/group/hqdinh2/weixu_lab_pyscenic/diagnose_tf_modules.py:25: FutureWarning: In the future `np.object` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, _attr):
+/mnt/scratch/group/hqdinh2/weixu_lab_pyscenic/diagnose_tf_modules.py:25: FutureWarning: In the future `np.bool` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, _attr):
+/mnt/scratch/group/hqdinh2/weixu_lab_pyscenic/diagnose_tf_modules.py:25: FutureWarning: In the future `np.str` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, _attr):

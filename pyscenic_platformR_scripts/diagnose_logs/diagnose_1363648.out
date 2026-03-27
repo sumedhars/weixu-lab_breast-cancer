@@ -1,0 +1,267 @@
+============================================
+SCENIC TF Regulon Diagnostic
+Job ID: 1363648
+Start:  Tue Mar 24 10:09:11 CDT 2026
+============================================
+======================================================================
+SCENIC TF Regulon Diagnostic
+TFs of interest: ['Tfap2b', 'Foxa1', 'Esr1']
+======================================================================
+
+======================================================================
+CHECK 1: Do modules exist for these TFs?
+======================================================================
+Total modules loaded: 8927
+
+  Tfap2b: 6 module(s)
+    Module: Regulon for Tfap2b
+      Genes: 827
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+    Module: Regulon for Tfap2b
+      Genes: 268
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+    Module: Regulon for Tfap2b
+      Genes: 51
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+    Module: Tfap2b
+      Genes: 138
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+    Module: Tfap2b
+      Genes: 343
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+    Module: Tfap2b
+      Genes: 2269
+      First 20 genes: ['Gm57081', '1700039M10Rik', 'Terc', 'Fkbp7', 'Gm57127', 'Sgca', 'Wdr19', 'Krt87', 'Zfp503', 'Gm54030', 'Engase', 'Or6c208', 'Nicn1', 'C5ar1', 'Sbk1', 'Usp39', 'Rwdd3', 'Gm20379', 'Gm56673', 'Pck2']
+
+  Foxa1: 6 module(s)
+    Module: Regulon for Foxa1
+      Genes: 742
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+    Module: Regulon for Foxa1
+      Genes: 241
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+    Module: Regulon for Foxa1
+      Genes: 51
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+    Module: Foxa1
+      Genes: 128
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+    Module: Foxa1
+      Genes: 300
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+    Module: Foxa1
+      Genes: 1615
+      First 20 genes: ['Man2b2', 'Gm11815', 'Vmn2r4', 'Zfp691', 'Norad', 'Nhlrc3', 'Gm4632', 'Gm57265', 'Fbxl18', 'Gm45767', 'Gm57069', 'Spock2', 'Gm29237', 'Zfp986', 'Ssna1', 'Gm17344', 'Tmem30b', 'Lyrm1', 'Hexdc', 'Cyb5d1']
+
+  Esr1: 6 module(s)
+    Module: Regulon for Esr1
+      Genes: 5037
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+    Module: Regulon for Esr1
+      Genes: 3430
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+    Module: Regulon for Esr1
+      Genes: 51
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+    Module: Esr1
+      Genes: 2538
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+    Module: Esr1
+      Genes: 3689
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+    Module: Esr1
+      Genes: 6677
+      First 20 genes: ['Cd164', 'Tlcd4', 'Clip4', 'Gns', 'Adam10', 'Rev3l', 'Sgk1', 'Lnx1', 'Myof', 'Srrm1', 'Ptbp3', 'Prlr', 'Ubn2', 'Cdk19', 'Prex1', 'Srrm2', 'Lpcat3', 'Dipk1a', 'Dop1b', 'Unc13b']
+
+======================================================================
+CHECK 2: Gene overlap between modules and ranking databases
+======================================================================
+
+  Database: mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings
+    Genes in DB: 24130
+
+  Database: mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings
+    Genes in DB: 24068
+
+  Union of all DB genes: 24130
+
+  Tfap2b | Module 'Regulon for Tfap2b' (827 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 652/827 genes overlap (78.8%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 650/827 genes overlap (78.6%)
+    vs ALL DBs (union): 652/827 (78.8%)
+    Genes NOT in any DB (175): ['1700039M10Rik', '1700061H18Rik', '2310058D17Rik', '2510017J16Rik', '2610021A01Rik', '2810449D17Rik', '4930431P22Rik', '4930444A19Rik', '4930544F09Rik', '4930551I15Rik', '4932443L11Rik', '6720407P12Rik', '9330160F10Rik', 'A530010L16Rik', 'A830008E24Rik', 'AV356131', 'Ahnak2', 'Atosb', 'B230206L02Rik', 'C030014I23Rik', 'Catspere2', 'Chrna1os', 'Cilk1', 'D830024N08Rik', 'D830035M03Rik', 'D830036C21Rik', 'Dipk1a', 'Dop1b', 'Dpep2.1', 'Dynlt1c']...
+
+  Tfap2b | Module 'Regulon for Tfap2b' (268 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 206/268 genes overlap (76.9%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 204/268 genes overlap (76.1%)
+    vs ALL DBs (union): 206/268 (76.9%)
+    Genes NOT in any DB (62): ['1700039M10Rik', '4930431P22Rik', '4930544F09Rik', '4930551I15Rik', '4932443L11Rik', 'AV356131', 'B230206L02Rik', 'Chrna1os', 'Dynlt1c', 'E430024P14Rik', 'Elobl', 'Gfus', 'Gm10399', 'Gm11728', 'Gm12592', 'Gm13199', 'Gm14225', 'Gm16541', 'Gm16725', 'Gm17690', 'Gm20379', 'Gm20412', 'Gm20535', 'Gm20703', 'Gm2479', 'Gm28323', 'Gm28382', 'Gm29481', 'Gm32391', 'Gm32857']...
+
+  Tfap2b | Module 'Regulon for Tfap2b' (51 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 38/51 genes overlap (74.5%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 38/51 genes overlap (74.5%)
+    vs ALL DBs (union): 38/51 (74.5%)
+    Genes NOT in any DB (13): ['1700039M10Rik', 'Gm17690', 'Gm20379', 'Gm20412', 'Gm32391', 'Gm33318', 'Gm47925', 'Gm54030', 'Gm56673', 'Gm57081', 'Gm57127', 'Gm57340', 'Or6c208']
+
+  Tfap2b | Module 'Tfap2b' (138 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 104/138 genes overlap (75.4%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 103/138 genes overlap (74.6%)
+    vs ALL DBs (union): 104/138 (75.4%)
+    Genes NOT in any DB (34): ['1700039M10Rik', '4930551I15Rik', '4932443L11Rik', 'Chrna1os', 'D830035M03Rik', 'Dpep2.1', 'E430024P14Rik', 'Elobl', 'Gm10399', 'Gm13919', 'Gm14225', 'Gm17690', 'Gm20379', 'Gm20412', 'Gm20703', 'Gm28382', 'Gm32391', 'Gm33318', 'Gm35315', 'Gm36371', 'Gm44036', 'Gm47925', 'Gm54030', 'Gm56530', 'Gm56673', 'Gm56785', 'Gm57081', 'Gm57127', 'Gm57340', 'Gm57450']...
+
+  Tfap2b | Module 'Tfap2b' (343 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 261/343 genes overlap (76.1%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 259/343 genes overlap (75.5%)
+    vs ALL DBs (union): 261/343 (76.1%)
+    Genes NOT in any DB (82): ['1700039M10Rik', '4930544F09Rik', '4930551I15Rik', '4932443L11Rik', 'AV356131', 'B230206L02Rik', 'Chrna1os', 'D830035M03Rik', 'Dpep2.1', 'Dynlt1c', 'E430024P14Rik', 'ENSMUSG00000121482', 'Elobl', 'Gfus', 'Gm10135', 'Gm10399', 'Gm11728', 'Gm12002', 'Gm12474', 'Gm12592', 'Gm13199', 'Gm13625', 'Gm13919', 'Gm14225', 'Gm16541', 'Gm16725', 'Gm17690', 'Gm20045', 'Gm20234', 'Gm20379']...
+
+  Tfap2b | Module 'Tfap2b' (2269 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 1840/2269 genes overlap (81.1%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 1837/2269 genes overlap (81.0%)
+    vs ALL DBs (union): 1840/2269 (81.1%)
+    Genes NOT in any DB (429): ['1700029K24Rik', '1700039M10Rik', '1700055D18Rik', '1700061H18Rik', '2010320O07Rik', '2310015A16Rik', '2310058D17Rik', '2510017J16Rik', '2610021A01Rik', '2700068H02Rik', '2810402E24Rik', '2810405F17Rik', '2810449D17Rik', '2900052L18Rik', '4921515G04Rik', '4921528I07Rik', '4930425P05Rik', '4930431P22Rik', '4930444A19Rik', '4930544F09Rik', '4930551I15Rik', '4930578M07Rik', '4930588G17Rik', '4930592C13Rik', '4932443L11Rik', '4933423P22Rik', '5031415H12Rik', '5330438D12Rik', '5330439K02Rik', '5430414B12Rik']...
+
+  Foxa1 | Module 'Regulon for Foxa1' (742 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 586/742 genes overlap (79.0%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 586/742 genes overlap (79.0%)
+    vs ALL DBs (union): 586/742 (79.0%)
+    Genes NOT in any DB (156): ['1700026N04Rik', '1700085D22Rik', '2900052L18Rik', '2900093K20Rik', '4833447P13Rik', '4930544F09Rik', '4930553P18Rik', '4932443L11Rik', '5330439K02Rik', '6720427I07Rik', '9530034A14Rik', '9930004E17Rik', 'A230083N12Rik', 'A830008E24Rik', 'Abitram', 'Ankdd1a', 'B230206L02Rik', 'C730034F03Rik', 'D930019O06Rik', 'Dglucy', 'Dipk1a', 'Dnaaf4', 'Dynlt1c', 'ENSMUSG00000121395', 'ENSMUSG00000121445', 'F630040K05Rik', 'Fbh1', 'Fhip1a', 'Gfus', 'Gm10550']...
+
+  Foxa1 | Module 'Regulon for Foxa1' (241 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 178/241 genes overlap (73.9%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 178/241 genes overlap (73.9%)
+    vs ALL DBs (union): 178/241 (73.9%)
+    Genes NOT in any DB (63): ['4833447P13Rik', '9930004E17Rik', 'A830008E24Rik', 'Ankdd1a', 'C730034F03Rik', 'Dipk1a', 'Dnaaf4', 'Dynlt1c', 'Gm11536', 'Gm11815', 'Gm12676', 'Gm13256', 'Gm13610', 'Gm14966', 'Gm15353', 'Gm15563', 'Gm15657', 'Gm15743', 'Gm15991', 'Gm16178', 'Gm17344', 'Gm20089', 'Gm26674', 'Gm26725', 'Gm26826', 'Gm29237', 'Gm31126', 'Gm32647', 'Gm32673', 'Gm35510']...
+
+  Foxa1 | Module 'Regulon for Foxa1' (51 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 32/51 genes overlap (62.7%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 32/51 genes overlap (62.7%)
+    vs ALL DBs (union): 32/51 (62.7%)
+    Genes NOT in any DB (19): ['Dnaaf4', 'Gm11815', 'Gm12676', 'Gm15657', 'Gm16178', 'Gm17344', 'Gm20089', 'Gm26725', 'Gm29237', 'Gm39214', 'Gm45767', 'Gm4632', 'Gm57069', 'Gm57265', 'Gm5817', 'Gm9754', 'Norad', 'Or10al2', 'Zfp986']
+
+  Foxa1 | Module 'Foxa1' (128 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 90/128 genes overlap (70.3%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 90/128 genes overlap (70.3%)
+    vs ALL DBs (union): 90/128 (70.3%)
+    Genes NOT in any DB (38): ['4833447P13Rik', 'Dnaaf4', 'Gm11815', 'Gm12676', 'Gm13610', 'Gm14966', 'Gm15657', 'Gm15743', 'Gm15991', 'Gm16178', 'Gm17344', 'Gm20089', 'Gm26674', 'Gm26725', 'Gm29237', 'Gm31126', 'Gm32647', 'Gm39214', 'Gm43666', 'Gm43846', 'Gm45767', 'Gm4632', 'Gm48749', 'Gm56544', 'Gm56596', 'Gm56760', 'Gm57069', 'Gm57201', 'Gm57265', 'Gm5817']...
+
+  Foxa1 | Module 'Foxa1' (300 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 225/300 genes overlap (75.0%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 225/300 genes overlap (75.0%)
+    vs ALL DBs (union): 225/300 (75.0%)
+    Genes NOT in any DB (75): ['4833447P13Rik', '9930004E17Rik', 'Ankdd1a', 'C730034F03Rik', 'Dnaaf4', 'Dynlt1c', 'Gm11536', 'Gm11815', 'Gm12676', 'Gm13256', 'Gm13610', 'Gm14966', 'Gm15353', 'Gm15563', 'Gm15657', 'Gm15743', 'Gm15991', 'Gm16178', 'Gm17344', 'Gm19410', 'Gm20089', 'Gm20483', 'Gm26674', 'Gm26725', 'Gm26826', 'Gm29237', 'Gm31126', 'Gm31881', 'Gm32647', 'Gm32673']...
+
+  Foxa1 | Module 'Foxa1' (1615 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 1257/1615 genes overlap (77.8%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 1255/1615 genes overlap (77.7%)
+    vs ALL DBs (union): 1257/1615 (77.8%)
+    Genes NOT in any DB (358): ['1700016P03Rik', '1700026N04Rik', '1700058P15Rik', '1700080G18Rik', '1700085D07Rik', '1700085D22Rik', '2010001K21Rik', '2010103J01Rik', '2310043M15Rik', '2510017J16Rik', '2810001A02Rik', '2810036E18Rik', '2900052L18Rik', '2900093K20Rik', '4833407H14Rik', '4833447P13Rik', '4930513L16Rik', '4930544F09Rik', '4930553P18Rik', '4930578M07Rik', '4932443L11Rik', '5330438D12Rik', '5330439K02Rik', '5430427G11Rik', '6230426M11Rik', '6720407P12Rik', '6720427I07Rik', '9530034A14Rik', '9630014M24Rik', '9930004E17Rik']...
+
+  Esr1 | Module 'Regulon for Esr1' (5037 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 4480/5037 genes overlap (88.9%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 4474/5037 genes overlap (88.8%)
+    vs ALL DBs (union): 4480/5037 (88.9%)
+    Genes NOT in any DB (557): ['1700031C06Rik', '1700061H18Rik', '1700085D07Rik', '1700085D22Rik', '1700111E14Rik', '1700121C08Rik', '1700126G02Rik', '1810019N24Rik', '2510017J16Rik', '2610021A01Rik', '2810001A02Rik', '2810036E18Rik', '2810402E24Rik', '2810405F17Rik', '2900052L18Rik', '2900093K20Rik', '3222401L13Rik', '4732440D04Rik', '4833438C02Rik', '4833445I07Rik', '4930444A19Rik', '4930484I04Rik', '4930505N22Rik', '4930544F09Rik', '4930549P19Rik', '4930558N01Rik', '4932422M17Rik', '4933423P22Rik', '5033421B08Rik', '5330439K02Rik']...
+
+  Esr1 | Module 'Regulon for Esr1' (3430 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 3086/3430 genes overlap (90.0%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 3081/3430 genes overlap (89.8%)
+    vs ALL DBs (union): 3086/3430 (90.0%)
+    Genes NOT in any DB (344): ['1700061H18Rik', '1700085D07Rik', '1700085D22Rik', '1700126G02Rik', '2610021A01Rik', '2810036E18Rik', '2810402E24Rik', '2900052L18Rik', '2900093K20Rik', '3222401L13Rik', '4833438C02Rik', '4833445I07Rik', '4930484I04Rik', '4930505N22Rik', '4930544F09Rik', '4932422M17Rik', '5430403G16Rik', '5430427G11Rik', '5830448L01Rik', '6720407P12Rik', '6720427I07Rik', '9330160F10Rik', '9530077C14Rik', '9630014M24Rik', 'A530017D24Rik', 'A830008E24Rik', 'A930037H05Rik', 'AI480526', 'Abitram', 'Abraxas2']...
+
+  Esr1 | Module 'Regulon for Esr1' (51 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 46/51 genes overlap (90.2%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 46/51 genes overlap (90.2%)
+    vs ALL DBs (union): 46/51 (90.2%)
+    Genes NOT in any DB (5): ['Cemip2', 'Cert1', 'Dipk1a', 'Dop1b', 'Tlcd4']
+
+  Esr1 | Module 'Esr1' (2538 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 2273/2538 genes overlap (89.6%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 2271/2538 genes overlap (89.5%)
+    vs ALL DBs (union): 2273/2538 (89.6%)
+    Genes NOT in any DB (265): ['1700061H18Rik', '1700085D07Rik', '1700085D22Rik', '2610021A01Rik', '2810402E24Rik', '2900052L18Rik', '2900093K20Rik', '3222401L13Rik', '4833445I07Rik', '4930505N22Rik', '4930544F09Rik', '4932422M17Rik', '5430403G16Rik', '5430427G11Rik', '6720407P12Rik', '6720427I07Rik', '9330160F10Rik', 'A830008E24Rik', 'AI480526', 'Abitram', 'Abraxas2', 'Ankdd1a', 'B230206L02Rik', 'Babam2', 'Bicra', 'Bicral', 'Castor2', 'Catspere2', 'Cavin4', 'Cemip2']...
+
+  Esr1 | Module 'Esr1' (3689 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 3300/3689 genes overlap (89.5%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 3295/3689 genes overlap (89.3%)
+    vs ALL DBs (union): 3300/3689 (89.5%)
+    Genes NOT in any DB (389): ['1700061H18Rik', '1700085D07Rik', '1700085D22Rik', '1700126G02Rik', '2510017J16Rik', '2610021A01Rik', '2810001A02Rik', '2810036E18Rik', '2810402E24Rik', '2900052L18Rik', '2900093K20Rik', '3222401L13Rik', '4732440D04Rik', '4833438C02Rik', '4833445I07Rik', '4930484I04Rik', '4930505N22Rik', '4930544F09Rik', '4930549P19Rik', '4932422M17Rik', '5430403G16Rik', '5430427G11Rik', '5830408C22Rik', '5830448L01Rik', '6720407P12Rik', '6720427I07Rik', '9330160F10Rik', '9530077C14Rik', '9630014M24Rik', 'A530017D24Rik']...
+
+  Esr1 | Module 'Esr1' (6677 genes):
+    vs mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 5845/6677 genes overlap (87.5%)
+    vs mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: 5837/6677 genes overlap (87.4%)
+    vs ALL DBs (union): 5845/6677 (87.5%)
+    Genes NOT in any DB (832): ['0610009E02Rik', '0610033M10Rik', '1700024B05Rik', '1700031C06Rik', '1700061H18Rik', '1700085D07Rik', '1700085D22Rik', '1700111E14Rik', '1700121C08Rik', '1700126G02Rik', '1810019N24Rik', '2010103J01Rik', '2210017I01Rik', '2310015A16Rik', '2410022M11Rik', '2510017J16Rik', '2610021A01Rik', '2700068H02Rik', '2810001A02Rik', '2810036E18Rik', '2810402E24Rik', '2810405F17Rik', '2900052L18Rik', '2900093K20Rik', '3222401L13Rik', '4732440D04Rik', '4732496C06Rik', '4833438C02Rik', '4833445I07Rik', '4930434J08Rik']...
+
+======================================================================
+CHECK 3: Are the TFs themselves present as genes in the databases?
+======================================================================
+  Tfap2b in mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+  Tfap2b in mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+  Foxa1 in mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+  Foxa1 in mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+  Esr1 in mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+  Esr1 in mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings: YES
+
+======================================================================
+CHECK 4: Motif annotation counts for these TFs
+======================================================================
+  Tfap2b: 126 annotation rows
+  Foxa1: 721 annotation rows
+  Esr1: 179 annotation rows
+
+======================================================================
+CHECK 5: GRNBoost2 adjacency stats for these TFs
+======================================================================
+
+  Tfap2b: 3843 edges in adjacencies
+    Importance — mean: 0.2647, median: 0.1599, max: 3.4885
+    Top 10 targets:
+       target  importance
+      Gm57081    3.488503
+1700039M10Rik    3.075384
+         Terc    2.874788
+        Fkbp7    2.788767
+      Gm57127    2.771693
+         Sgca    2.715224
+        Wdr19    2.620074
+        Krt87    2.585744
+       Zfp503    2.511516
+      Gm54030    2.479507
+
+  Foxa1: 2749 edges in adjacencies
+    Importance — mean: 0.2725, median: 0.1543, max: 2.9757
+    Top 10 targets:
+ target  importance
+ Man2b2    2.975702
+Gm11815    2.826706
+ Vmn2r4    2.675333
+ Zfp691    2.378450
+  Norad    2.358186
+ Nhlrc3    2.297948
+ Gm4632    2.256650
+Gm57265    2.171120
+ Fbxl18    2.134148
+Gm45767    1.923737
+
+  Esr1: 8468 edges in adjacencies
+    Importance — mean: 0.8667, median: 0.5187, max: 6.8319
+    Top 10 targets:
+target  importance
+ Cd164    6.831851
+ Tlcd4    5.846917
+ Clip4    5.660424
+   Gns    5.624176
+Adam10    5.553581
+ Rev3l    5.538299
+  Sgk1    5.521308
+  Lnx1    5.514647
+  Myof    5.487964
+ Srrm1    5.451122
+
+======================================================================
+DIAGNOSTIC COMPLETE
+======================================================================
+============================================
+Finished: Tue Mar 24 10:09:14 CDT 2026
+============================================
