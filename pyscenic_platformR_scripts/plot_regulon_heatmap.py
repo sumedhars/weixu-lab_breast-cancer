@@ -12,7 +12,7 @@ Method (adapted from Brand et al. 2024 STAR Methods):
   This gives cell-type-specific regulon enrichment while controlling for
   condition (WT vs KO) effects.
 
-  Select top N regulons per cell type by highest |t-value| and plot as a heatmap.
+  Select top N regulons per cell type by highest t-value and plot as a heatmap.
 
 Inputs:
   --h5ad           : Path to your AnnData (.h5ad) with cell type annotations
@@ -161,14 +161,20 @@ def compute_tvalues_per_celltype(auc_df, cell_types, conditions):
 
 def select_top_regulons(tvalue_matrix, n_top=5):
     """
-    Select top N regulons per cell type by highest absolute t-value,
+    Select top N regulons per cell type by highest (most positive) t-value,
     keeping the union across all cell types (no duplicates).
     """
 
     selected = []
+    print(f"\n--- Top {n_top} regulons per cell type (by highest t-value) ---")
     for ct in tvalue_matrix.columns:
-        top_idx = tvalue_matrix[ct].abs().nlargest(n_top).index.tolist()
+        top_series = tvalue_matrix[ct].nlargest(n_top)
+        top_idx = top_series.index.tolist()
         selected.extend(top_idx)
+        print(f"\n  {ct}:")
+        for rank, reg in enumerate(top_idx, 1):
+            tval = tvalue_matrix.loc[reg, ct]
+            print(f"    {rank:2d}. {reg:30s}  t = {tval:+.4f}")
 
     # Remove duplicates while preserving order
     seen = set()
