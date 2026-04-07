@@ -164,10 +164,12 @@ def select_top_regulons(tvalue_matrix, n_top=5):
     Select top N regulons per cell type by highest absolute t-value,
     keeping the union across all cell types (no duplicates).
     """
+
     selected = []
     for ct in tvalue_matrix.columns:
         top_idx = tvalue_matrix[ct].abs().nlargest(n_top).index.tolist()
         selected.extend(top_idx)
+
     # Remove duplicates while preserving order
     seen = set()
     unique_selected = []
@@ -175,6 +177,7 @@ def select_top_regulons(tvalue_matrix, n_top=5):
         if r not in seen:
             seen.add(r)
             unique_selected.append(r)
+
     print(f"\nSelected {len(unique_selected)} unique regulons "
           f"({n_top} per cell type, union)")
     return unique_selected
@@ -210,11 +213,13 @@ def plot_heatmap(tvalue_matrix, selected_regulons, output_path, n_top):
     g.ax_heatmap.set_ylabel("")
     g.ax_heatmap.tick_params(axis="x", rotation=90, labelsize=8)
     g.ax_heatmap.tick_params(axis="y", rotation=0, labelsize=10)
+
     g.fig.suptitle(
         f"SCENIC Regulon Enrichment per Cell Type\n"
         f"(top {n_top} regulons per type, one-vs-rest t-values)",
         fontsize=13, y=1.02,
     )
+
     g.savefig(output_path, dpi=200, bbox_inches="tight")
     plt.close()
     print(f"\nHeatmap saved to: {output_path}")
@@ -268,6 +273,7 @@ def plot_heatmap_simple(tvalue_matrix, selected_regulons, output_path, n_top):
         f"(top {n_top} regulons per type, one-vs-rest t-values)",
         fontsize=13,
     )
+
     fig.savefig(output_path, dpi=200, bbox_inches="tight")
     plt.close()
     print(f"Sorted heatmap saved to: {output_path}")
