@@ -4,3 +4,4 @@ CTR9_snRNASeq
 pyscenic_resources/mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather
 pyscenic_resources/mm10_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather
 R_code/.Rproj.user/F89AFF7B
+output_filtered_epi/
