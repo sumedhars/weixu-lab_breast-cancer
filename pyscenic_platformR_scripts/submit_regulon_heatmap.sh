@@ -40,6 +40,13 @@ CONDITION_COL="condition"
 # Number of top regulons to select per cell type
 N_TOP=5
 
+# Path to regulons.pkl written by run_pyscenic.py (Phase II / RcisTarget).
+# This is the authoritative source for the number of target genes per regulon:
+# each pySCENIC Regulon object stores the exact pruned target-gene set, so
+# len(r.genes) gives the real post-cisTarget count.
+# Leave empty only if you did not run through run_pyscenic.py.
+REGULONS_PKL="pyscenic_output/regulons.pkl"
+
 # Output directory
 OUTPUT_DIR="regulon_heatmap_output"
 
@@ -61,13 +68,13 @@ echo "  AUC_CSV:        ${AUC_CSV}"
 echo "  CELL_TYPE_COL:  ${CELL_TYPE_COL}"
 echo "  CONDITION_COL:  ${CONDITION_COL}"
 echo "  N_TOP:          ${N_TOP}"
+echo "  REGULONS_PKL:   ${REGULONS_PKL}"
 echo "  OUTPUT_DIR:     ${OUTPUT_DIR}"
 echo ""
 echo "  Outputs:"
-echo "    - regulon_heatmap_clustered.png        (original clustered heatmap)"
-echo "    - regulon_heatmap_sorted.png           (sorted by top cell type)"
+echo "    - regulon_heatmap_sorted.png            (TFs on Y, cell types on X,"
+echo "                                             dendrogram + dotted separators)"
 echo "    - regulon_heatmap_condition_sorted.png  (celltype_condition rows, sorted)"
-echo "    - regulon_heatmap_condition_clustered.png (celltype_condition rows, clustered)"
 echo ""
 
 ${PYTHON_BIN} plot_regulon_heatmap.py \
@@ -76,7 +83,8 @@ ${PYTHON_BIN} plot_regulon_heatmap.py \
     --cell_type_col "${CELL_TYPE_COL}" \
     --condition_col "${CONDITION_COL}" \
     --n_top ${N_TOP} \
-    --output_dir "${OUTPUT_DIR}"
+    --output_dir "${OUTPUT_DIR}" \
+    ${REGULONS_PKL:+--regulons_pkl "${REGULONS_PKL}"}
 
 echo ""
 echo "============================================"

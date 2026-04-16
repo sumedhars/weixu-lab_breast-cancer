@@ -54,7 +54,112 @@ def parse_args():
                         help="Number of top regulons per cell type (default: 5)")
     parser.add_argument("--output_dir", default="regulon_heatmap_output",
                         help="Output directory")
+    parser.add_argument("--regulons_pkl", default=None,
+                        help="Path to regulons.pkl produced by run_pyscenic.py "
+                             "(pyscenic_output/regulons.pkl). Used to look up the exact "
+                             "number of target genes for each regulon from the Regulon "
+                             "objects themselves (r.name → len(r.genes)). "
+                             "If omitted, the script falls back to parsing target-gene "
+                             "counts from regulon names (pattern: TF(+)(Ng)), or omits "
+                             "the count entirely if that pattern is also absent.")
     return parser.parse_args()
+
+
+# ---------------------------------------------------------------------------
+# Helper: parse number of target genes from pySCENIC regulon names
+# ---------------------------------------------------------------------------
+
+def parse_n_targets_from_regulon_names(regulon_names):
+    """
+    Extract TF name and target-gene count from pySCENIC regulon name strings.
+
+    Supported formats
+    -----------------
+    - ``Tfap2b(+)(52g)``  → tf_name='Tfap2b', n_targets=52
+    - ``Tfap2b(-)``       → tf_name='Tfap2b', n_targets=None
+    - ``Tfap2b(+)``       → tf_name='Tfap2b', n_targets=None
+    - anything else       → tf_name=<original name>, n_targets=None
+
+    Returns
+    -------
+    dict  :  regulon_name  →  (tf_name: str, n_targets: int | None)
+    """
+    import re
+    # Matches e.g.  Tfap2b(+)(52g)  or  Tfap2b(-)(7g)
+    _with_count    = re.compile(r'^(.+?)\([+-]\)\((\d+)g\)$')
+    # Matches e.g.  Tfap2b(+)  or  Tfap2b(-)
+    _without_count = re.compile(r'^(.+?)\([+-]\)$')
+
+    result = {}
+    for name in regulon_names:
+        m = _with_count.match(name)
+        if m:
+            result[name] = (m.group(1), int(m.group(2)))
+            continue
+        m = _without_count.match(name)
+        if m:
+            result[name] = (m.group(1), None)
+            continue
+        result[name] = (name, None)
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Load n_targets directly from pySCENIC regulons.pkl
+# ---------------------------------------------------------------------------
+
+def load_n_targets_from_pkl(pkl_path):
+    """
+    Read the ``regulons.pkl`` file written by ``run_pyscenic.py`` (Phase II)
+    and return a mapping of regulon name → number of target genes.
+
+    Each entry in the pickle is a pySCENIC ``Regulon`` object with:
+      - ``r.name``   — the regulon label used as AUCell column names
+                       (e.g. ``'Tfap2b(+)'``)
+      - ``r.genes``  — frozenset of target gene names
+
+    Parameters
+    ----------
+    pkl_path : str
+        Absolute or relative path to ``pyscenic_output/regulons.pkl``.
+
+    Returns
+    -------
+    dict
+        ``{ regulon_name: n_targets }``  e.g. ``{'Tfap2b(+)': 52, ...}``
+        Returns an empty dict if the file cannot be loaded.
+    """
+    import pickle
+
+    if not os.path.exists(pkl_path):
+        print(f"  WARNING: --regulons_pkl path not found: {pkl_path}")
+        return {}
+
+    print(f"Loading regulon target-gene counts from: {pkl_path}")
+    try:
+        with open(pkl_path, "rb") as fh:
+            regulons = pickle.load(fh)
+    except Exception as e:
+        print(f"  WARNING: Could not load regulons.pkl ({e}). "
+              f"Falling back to name-parsing.")
+        return {}
+
+    n_targets_map = {}
+    for r in regulons:
+        try:
+            genes = r.genes                   # frozenset
+            n     = len(genes)
+            name  = r.name                    # e.g. 'Tfap2b(+)'
+            n_targets_map[name] = n
+        except Exception:
+            pass                              # malformed entry — skip
+
+    print(f"  Loaded n_targets for {len(n_targets_map)} regulons from pkl")
+    if n_targets_map:
+        sample = list(n_targets_map.items())[:4]
+        print(f"  Sample mapping: { {k: v for k, v in sample} }")
+
+    return n_targets_map
 
 
 def load_aucell_matrix(h5ad_path, auc_csv_path):
@@ -189,98 +294,138 @@ def select_top_regulons(tvalue_matrix, n_top=5):
     return unique_selected
 
 
-def plot_heatmap(tvalue_matrix, selected_regulons, output_path, n_top):
-    """Plot the heatmap with cell types on y-axis and regulons on x-axis."""
+def plot_heatmap_sorted(tvalue_matrix, selected_regulons, output_path, n_top,
+                        regulons_pkl=None):
+    """
+    Publication-quality sorted heatmap:
 
-    plot_df = tvalue_matrix.loc[selected_regulons].T  # cell_types x regulons
+    Layout
+    ------
+    - Y-axis (rows)  : TF / regulon, labelled as ``TF_name (N_targets)``
+    - X-axis (cols)  : cell types, with a hierarchical dendrogram on top
+    - Row ordering   : regulons grouped by the cell type in which they score
+                       highest; within each group sorted by descending t-value
+    - Separators     : horizontal dotted lines between each cell-type group
 
-    # --- Figure 2D style: cell types on Y, regulons on X ---
-    fig_width = max(10, len(selected_regulons) * 0.45 + 2)
-    fig_height = max(4, len(plot_df) * 0.6 + 2)
+    Target-gene counts
+    ------------------
+    Priority order:
+      1. ``regulons.pkl`` from run_pyscenic.py — authoritative source; reads
+         ``len(r.genes)`` directly from the pySCENIC Regulon objects.
+      2. Parsed from the regulon name itself  (pattern ``TF(+)(Ng)``).
+      3. TF name only (no count) if neither source yields a number.
+    """
+    from scipy.cluster.hierarchy import linkage
+    from scipy.spatial.distance import pdist
+
+    # ------------------------------------------------------------------
+    # 1. Sort regulons by their top cell type, track group boundaries
+    # ------------------------------------------------------------------
+    max_ct     = tvalue_matrix.loc[selected_regulons].idxmax(axis=1)
+    ct_order   = list(tvalue_matrix.columns)          # original cell-type order
+
+    sorted_regulons = []
+    block_sizes     = []
+    for ct in ct_order:
+        regs = max_ct[max_ct == ct].index.tolist()
+        regs = sorted(regs,
+                      key=lambda r: tvalue_matrix.loc[r, ct],
+                      reverse=True)
+        sorted_regulons.extend(regs)
+        block_sizes.append(len(regs))
+
+    # ------------------------------------------------------------------
+    # 2. Build plot matrix: regulons × cell_types
+    # ------------------------------------------------------------------
+    plot_df = tvalue_matrix.loc[sorted_regulons, ct_order].copy()
+
+    # ------------------------------------------------------------------
+    # 3. Build Y-axis labels:  TF_name (n_targets)
+    #    Priority 1: regulons.pkl  →  len(r.genes)
+    #    Priority 2: parse count from regulon name  (pattern TF(+)(Ng))
+    #    Priority 3: TF name only
+    # ------------------------------------------------------------------
+    pkl_map = load_n_targets_from_pkl(regulons_pkl) if regulons_pkl else {}
+
+    # Name-parsing gives us clean TF names even when the count is absent
+    parsed = parse_n_targets_from_regulon_names(sorted_regulons)
+
+    def make_label(reg):
+        tf_name, n_parsed = parsed.get(reg, (reg, None))
+        # pkl is authoritative; fall back to whatever the name encodes
+        n = pkl_map.get(reg, n_parsed)
+        return f"{tf_name} ({n})" if n is not None else tf_name
+
+    y_labels = [make_label(r) for r in sorted_regulons]
+    plot_df.index = y_labels
+
+    # ------------------------------------------------------------------
+    # 4. Cluster cell types (columns) for the X-axis dendrogram
+    # ------------------------------------------------------------------
+    col_linkage = linkage(
+        pdist(plot_df.T.values, metric="euclidean"),
+        method="average",
+    )
+
+    # ------------------------------------------------------------------
+    # 5. Build figure with clustermap
+    # ------------------------------------------------------------------
+    n_rows = len(sorted_regulons)
+    n_cols = len(ct_order)
+
+    fig_height = max(6, n_rows * 0.32 + 2.5)
+    fig_width  = max(5, n_cols * 1.1  + 3.0)
 
     g = sns.clustermap(
         plot_df,
         cmap="RdBu_r",
         center=0,
         figsize=(fig_width, fig_height),
-        row_cluster=False,   # keep cell type order fixed
-        col_cluster=True,    # cluster regulons by similarity
-        z_score=None,        # t-values are already comparable
-        linewidths=0.5,
+        row_cluster=False,          # fixed regulon order
+        col_cluster=True,           # cluster cell types → dendrogram on top
+        col_linkage=col_linkage,
+        z_score=None,
+        linewidths=0.4,
         linecolor="white",
         xticklabels=True,
         yticklabels=True,
-        dendrogram_ratio=(0.08, 0.12),
-        cbar_kws={"label": "t-value", "shrink": 0.6},
-        cbar_pos=(0.02, 0.82, 0.03, 0.15),
+        dendrogram_ratio=0.12,      # space for the column (cell-type) dendrogram
+        cbar_kws={"label": "t-value (one-vs-rest)", "shrink": 0.55,
+                  "orientation": "vertical"},
     )
 
-    g.ax_heatmap.set_xlabel("Regulons", fontsize=12)
-    g.ax_heatmap.set_ylabel("")
-    g.ax_heatmap.tick_params(axis="x", rotation=90, labelsize=8)
-    g.ax_heatmap.tick_params(axis="y", rotation=0, labelsize=10)
+    # ------------------------------------------------------------------
+    # 6. Horizontal dotted separator lines between cell-type blocks
+    # ------------------------------------------------------------------
+    cumulative  = 0
+    boundaries  = []
+    for size in block_sizes:
+        cumulative += size
+        if size > 0:
+            boundaries.append(cumulative)
+
+    # All boundaries except the very last (end of heatmap)
+    for b in boundaries[:-1]:
+        g.ax_heatmap.axhline(
+            y=b, color="black", linewidth=1.1,
+            linestyle="--", alpha=0.75,
+        )
+
+    # ------------------------------------------------------------------
+    # 7. Axis labels & tick formatting
+    # ------------------------------------------------------------------
+    g.ax_heatmap.set_xlabel("Cell Types", fontsize=12, labelpad=8)
+    g.ax_heatmap.set_ylabel("TF / Regulon  (# target genes)", fontsize=11, labelpad=8)
+    g.ax_heatmap.tick_params(axis="x", rotation=45, labelsize=9)
+    g.ax_heatmap.tick_params(axis="y", rotation=0,  labelsize=8)
 
     g.fig.suptitle(
         f"SCENIC Regulon Enrichment per Cell Type\n"
-        f"(top {n_top} regulons per type, one-vs-rest t-values)",
-        fontsize=13, y=1.02,
+        f"(top {n_top} regulons per type · one-vs-rest t-values)",
+        fontsize=13, y=1.01,
     )
 
     g.savefig(output_path, dpi=200, bbox_inches="tight")
-    plt.close()
-    print(f"\nHeatmap saved to: {output_path}")
-
-
-def plot_heatmap_simple(tvalue_matrix, selected_regulons, output_path, n_top):
-    """
-    Alternative: simple heatmap (no clustering) — closer to the paper figure
-    where regulons are grouped by their top cell type.
-    """
-
-    plot_df = tvalue_matrix.loc[selected_regulons].T  # cell_types x regulons
-
-    # Sort regulons by which cell type they're most enriched in
-    max_ct = tvalue_matrix.loc[selected_regulons].idxmax(axis=1)
-    cell_type_order = list(plot_df.index)
-    sorted_regulons = []
-    for ct in cell_type_order:
-        regs_for_ct = max_ct[max_ct == ct].index.tolist()
-        # Within each group, sort by descending t-value
-        regs_for_ct = sorted(
-            regs_for_ct,
-            key=lambda r: tvalue_matrix.loc[r, ct],
-            reverse=True,
-        )
-        sorted_regulons.extend(regs_for_ct)
-
-    plot_df = plot_df[sorted_regulons]
-
-    fig_width = max(10, len(sorted_regulons) * 0.45 + 2)
-    fig_height = max(4, len(plot_df) * 0.6 + 2)
-
-    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
-    sns.heatmap(
-        plot_df,
-        cmap="RdBu_r",
-        center=0,
-        linewidths=0.5,
-        linecolor="white",
-        xticklabels=True,
-        yticklabels=True,
-        cbar_kws={"label": "t-value", "shrink": 0.6},
-        ax=ax,
-    )
-    ax.set_xlabel("Regulons", fontsize=12)
-    ax.set_ylabel("")
-    ax.tick_params(axis="x", rotation=90, labelsize=8)
-    ax.tick_params(axis="y", rotation=0, labelsize=10)
-    ax.set_title(
-        f"SCENIC Regulon Enrichment per Cell Type\n"
-        f"(top {n_top} regulons per type, one-vs-rest t-values)",
-        fontsize=13,
-    )
-
-    fig.savefig(output_path, dpi=200, bbox_inches="tight")
     plt.close()
     print(f"Sorted heatmap saved to: {output_path}")
 
@@ -430,66 +575,7 @@ def plot_heatmap_by_condition(
     print(f"Condition-split heatmap saved to: {output_path}")
 
 
-def plot_heatmap_by_condition_clustered(
-    tvalue_group_matrix,
-    selected_regulons,
-    cell_types,
-    conditions,
-    output_path,
-    n_top,
-):
-    """
-    Clustered version of the condition-split heatmap.
-    Rows = celltype_condition (fixed order), cols = regulons (clustered).
-    Values are one-vs-rest t-values from the per-group model.
-    """
 
-    plot_df = tvalue_group_matrix.loc[selected_regulons].T  # groups x regulons
-
-    # Order rows by cell type with conditions side-by-side
-    unique_types = sorted(cell_types.unique())
-    unique_conds = sorted(conditions.unique())
-    row_order = []
-    for ct in unique_types:
-        for cond in unique_conds:
-            label = f"{ct}_{cond}"
-            if label in plot_df.index:
-                row_order.append(label)
-    plot_df = plot_df.loc[row_order]
-
-    fig_width = max(10, len(selected_regulons) * 0.45 + 3)
-    fig_height = max(5, len(row_order) * 0.45 + 2)
-
-    g = sns.clustermap(
-        plot_df,
-        cmap="RdBu_r",
-        center=0,
-        figsize=(fig_width, fig_height),
-        row_cluster=False,
-        col_cluster=True,
-        linewidths=0.5,
-        linecolor="white",
-        xticklabels=True,
-        yticklabels=True,
-        dendrogram_ratio=(0.08, 0.12),
-        cbar_kws={"label": "t-value", "shrink": 0.5},
-        cbar_pos=(0.02, 0.82, 0.03, 0.15),
-    )
-
-    g.ax_heatmap.set_xlabel("Regulons", fontsize=12)
-    g.ax_heatmap.set_ylabel("")
-    g.ax_heatmap.tick_params(axis="x", rotation=90, labelsize=8)
-    g.ax_heatmap.tick_params(axis="y", rotation=0, labelsize=9)
-
-    g.fig.suptitle(
-        f"SCENIC Regulon Enrichment by Cell Type × Condition\n"
-        f"(top {n_top} regulons per type, one-vs-rest t-values per group)",
-        fontsize=13, y=1.02,
-    )
-
-    g.savefig(output_path, dpi=200, bbox_inches="tight")
-    plt.close()
-    print(f"Condition-split clustered heatmap saved to: {output_path}")
 
 
 def main():
@@ -542,21 +628,19 @@ def main():
     # Select top regulons
     selected = select_top_regulons(tvalue_matrix, n_top=args.n_top)
 
-    # Plot clustered heatmap
-    plot_heatmap(
-        tvalue_matrix, selected,
-        os.path.join(args.output_dir, "regulon_heatmap_clustered.png"),
-        args.n_top,
-    )
-
-    # Plot sorted heatmap (regulons grouped by top cell type — closer to Fig 2D)
-    plot_heatmap_simple(
+    # Plot sorted heatmap:
+    #   - regulons on Y-axis, cell types on X-axis
+    #   - dendrogram clusters cell types on X
+    #   - dotted lines separate regulon groups per cell type
+    #   - TF labels include number of target genes
+    plot_heatmap_sorted(
         tvalue_matrix, selected,
         os.path.join(args.output_dir, "regulon_heatmap_sorted.png"),
         args.n_top,
+        regulons_pkl=args.regulons_pkl,
     )
 
-    # ---- Condition-split heatmaps (celltype_WT / celltype_KO rows) ----
+    # ---- Condition-split heatmap (celltype_WT / celltype_KO rows) ----
     # Fit one-vs-rest model per (celltype, condition) group:
     #   AUCell ~ is_group  (no separate condition covariate)
     tvalue_group_matrix = compute_tvalues_per_group(auc_df, cell_types, conditions)
@@ -571,14 +655,6 @@ def main():
         tvalue_group_matrix, selected, tvalue_matrix,
         cell_types, conditions,
         os.path.join(args.output_dir, "regulon_heatmap_condition_sorted.png"),
-        args.n_top,
-    )
-
-    # Clustered condition-split heatmap
-    plot_heatmap_by_condition_clustered(
-        tvalue_group_matrix, selected,
-        cell_types, conditions,
-        os.path.join(args.output_dir, "regulon_heatmap_condition_clustered.png"),
         args.n_top,
     )
 
